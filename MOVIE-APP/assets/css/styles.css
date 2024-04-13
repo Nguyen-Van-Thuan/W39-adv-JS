@@ -27,3 +27,64 @@
   outline: none;
   background-color: #22254b;
 }
+
+/* Main */
+.main {
+  padding: 50px 0;
+  background-color: #22254b;
+}
+.container {
+  max-width: 85%;
+}
+
+.wrap-movie {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden; /* Loai bo TP vuot qua KT movie*/
+  margin-bottom: 50px;
+}
+.wrap-movie .box-images img {
+  width: 100%;
+  object-fit: cover;
+  height: auto;
+}
+.wrap-movie .box-info {
+  width: 100%;
+  background-color: #373b69;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wrap-movie .box-info h3 {
+  font-size: 18px;
+  color: #fff;
+}
+.rating {
+  padding: 8px 12px;
+  color: lightgreen;
+  background-color: #22254b;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.overview {
+  position: absolute;
+  left: 0;
+  /* bottom: 0; */
+  bottom: -500px;
+  background-color: #fff;
+  padding: 30px 20px;
+  transition: bottom .3s;
+}
+.wrap-movie:hover .overview {
+  bottom: 0;
+}
+
+.overview h4 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.overview .description {
+  font-size: 19px;
+  line-height: 1.4;
+}
