@@ -62,7 +62,7 @@
 }
 .rating {
   padding: 8px 12px;
-  color: lightgreen;
+  /* color: lightgreen; */
   background-color: #22254b;
   border-radius: 4px;
   font-size: 13px;
@@ -87,4 +87,17 @@
 .overview .description {
   font-size: 19px;
   line-height: 1.4;
+}
+
+.box-info .green {
+  color: green;
+}
+.box-info .orange {
+  color: orange;
+}
+.box-info .red {
+  color: red;
+}
+.wrap-movie a {
+  text-decoration: none;
 }

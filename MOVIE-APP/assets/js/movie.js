@@ -1,5 +1,8 @@
 const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1';
 const IMG_PATH = 'https://image.tmdb.org/t/p/w1280'
+const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="'
+
+
 
 
 // B1: Call API server to local
@@ -20,7 +23,7 @@ let rowJs = document.querySelector(".row-js");
 const showMovie = (data) => {
   let HTML = ``;
   data.forEach(value => {
-    console.log(value);
+    // console.log(value);
     HTML += `
     <div class="col-12 col-sm-6 col-md-3">
 
@@ -32,7 +35,7 @@ const showMovie = (data) => {
           
           <div class="box-info">
             <h3>${value.title}</h3>
-            <p class="rating">${value.vote_average}</p>
+            <p class="rating ${startMovie(value.vote_average)}">${value.vote_average}</p>
           </div>
 
           <div class="overview">
@@ -51,5 +54,42 @@ const showMovie = (data) => {
   // show movie coloumn to row row-js
   // console.log(HTML);
   rowJs.innerHTML = HTML;
-
 }
+
+
+// Movie Start
+
+const startMovie = (vote) => {
+  if (vote >= 8) {
+    return 'green';
+  } else if (vote >= 6) {
+    return 'orange';
+  } else {
+    return 'red'
+  }
+}
+
+
+// Chuc nang tim kiem
+const form = document.querySelector('form');
+const inputSearch = document.querySelector('.input-search');
+// console.log(form);
+// console.log(inputSearch);
+
+
+form.addEventListener('submit', (event)=>{
+  event.preventDefault(); //Bo loading mac dinh trinh duyet
+
+
+  // B1: Lay gia tri cua ong nguoi dung search
+  const searchTerm = inputSearch.value;
+  console.log(searchTerm);
+
+  if(searchTerm && searchTerm !== '') {
+
+    getApi(SEARCH_API + searchTerm);
+    
+  }else {
+    alert("Vui long nhap ten cua ban!");
+  }
+})
