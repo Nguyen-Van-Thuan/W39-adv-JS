@@ -72,6 +72,32 @@ let todos = JSON.parse(localStorage.getItem("TODOS"));
 // Ton tai -> Hien thi ra
 // K ton tai -> Doi nguoi dung nhap vao va cung hien thi ra
 
+
+// Update localStorage
+const updateLS = () => {
+  let allLiEl = document.querySelectorAll("li");
+
+  let listTodos = [];
+  allLiEl.forEach((item)=>{
+    // item: Tung cai the li trong allLiEl
+
+    listTodos.push(
+      {
+        name: item.innerHTML,
+        completed: item.classList.contains("completed")
+      }
+    )
+  })
+  // console.log(listTodos);
+
+  // Luu listTodos vao trong localStorage
+  localStorage.setItem("TODOS", JSON.stringify(listTodos));
+
+}
+
+
+
+
 // Hien thi tung cong viec ra ngoai UI
 const showTodo = (data) => {
   let todoName = inputEl.value; //Get value input
@@ -92,21 +118,25 @@ const showTodo = (data) => {
     // Click chuot trai thi thay doi trang thai cong viec
     liEl.addEventListener("click", () => {
       liEl.classList.toggle("completed");
+      updateLS();
     })
 
     // Click chuot phai remove the di
     liEl.addEventListener("contextmenu", ()=>{
-      console.log("click chuot phai!");
+      // console.log("click chuot phai!");
       liEl.remove();
+      updateLS();
+
     });
 
     liEl.innerHTML = todoName; // Them noi dung cho <li></li>
     ulEl.appendChild(liEl); //Hien thi trong <ul></ul>
+
+    inputEl.value = ''; //Xoa noi dung o input khi them 1 cong viec moi vao
+    updateLS();
   }
 
 }
-
-
 
 
 if (todos) {
