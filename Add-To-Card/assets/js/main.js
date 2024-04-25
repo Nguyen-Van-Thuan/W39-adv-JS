@@ -73,7 +73,10 @@ const addToCartItem = (price, imageSrc) => {
   `;
 
   divEl.innerHTML = cartHTML;
-  console.log(divEl);
+
+  // Check SP them vao gio hang -> 1 lan
+  let cartImgEl = document.querySelectorAll(".cart-image");
+  console.log(cartImgEl);
 
   productRows.appendChild(divEl);
 }
