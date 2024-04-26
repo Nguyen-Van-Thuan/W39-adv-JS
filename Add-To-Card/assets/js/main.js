@@ -76,8 +76,104 @@ const addToCartItem = (price, imageSrc) => {
 
   // Check SP them vao gio hang -> 1 lan
   let cartImgEl = document.querySelectorAll(".cart-image");
-  console.log(cartImgEl);
+  let isDuplicate = false;
 
+  cartImgEl.forEach((item)=>{
+    // -> item.src == imageSrc: check anh sp moi them co bi trung sp cu khong
+    if(item.src == imageSrc) {
+      alert("San pham da ton tai trong gio hang roi");
+      isDuplicate = true;
+    }
+  });
+
+  if(isDuplicate == true) {
+    return null;
+  }
+
+  // Them moi sp vao gio hang
   productRows.appendChild(divEl);
+  updateCartPrice();
+
+
+  // Xoa san pham dang ton tai trong gio hang
+  let removeBtn = document.querySelectorAll(".remove-btn");
+  removeBtn.forEach((buttonRemove)=>{
+    buttonRemove.addEventListener("click", ()=>{
+      removeItem(buttonRemove);
+      updateCartPrice();
+    });
+  });
+
+
+  // Thay doi so luong trong gio hang
+  let productQuantityEl = document.querySelectorAll(".product-quantity");
+  productQuantityEl.forEach((inputEl)=>{
+    inputEl.addEventListener("change", ()=>{
+      changeQuatity(inputEl);
+    })
+  });
+}
+
+
+// Xoa sp Trong gio hang
+const removeItem = (buttonRemove) =>{
+  // remove(): phuong thuc co san trong js -> xoa phan tu
+  buttonRemove.parentElement.remove();
+}
+
+
+// Thay doi so luong trong gio hang
+const changeQuatity = (inputEl) =>{
+  // Khong cho phep nhap SL sp pham nho hon 1
+  if(inputEl.value < 1) {
+    alert("San pham can dat toi thieu la 1!");
+    return inputEl.value = 1
+  }
+
+  // Cap nhat tong gia tien
+  updateCartPrice();
+
+}
+
+
+// Cap nhat gia tien
+const updateCartPrice = () => {
+  let productRow = document.querySelectorAll(".product-row");
+  // console.log(productRow);
+
+  let total = 0;
+  let totalQuantity = 0;
+  productRow.forEach((cartItem)=>{
+
+    // So luong cua tung san pham
+    const quantityEl = cartItem.querySelector(".product-quantity").value;
+    const quantity = parseFloat(quantityEl);
+
+    // Gia tien cua tung san pham
+    const priceEl = cartItem.querySelector(".cart-price").innerHTML.replace("$", "");
+    const price = parseFloat(priceEl);
+
+    // Tong gia tien cua tat ca san pham
+    total = total + (quantity * price);
+
+    // Tong so luong san pham
+    totalQuantity = totalQuantity + quantity;
+  });
+
+  console.log(totalQuantity);
+  // Hien thi gia tien ra popup
+  let totalPriceEl = document.querySelector(".total-price");
+  totalPriceEl.innerHTML = "$" + total;
+
+  // Hien thi ra icon gio hang
+  let cartQuantityEl = document.querySelector(".cart-quantity");
+  cartQuantityEl.innerHTML = totalQuantity;
+
+  if(totalQuantity > 100) {
+    cartQuantityEl.innerHTML = "100+";
+
+  }
+
+  
 }
 
